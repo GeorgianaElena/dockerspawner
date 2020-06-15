@@ -6,15 +6,17 @@ env:
   global:
     - ASYNC_TEST_TIMEOUT=30
   matrix:
-    - JUPYTERHUB=0.8 EXTRA_PIP='tornado<5'
-    - JUPYTERHUB=0.9 EXTRA_PIP='tornado>5'
+    - JUPYTERHUB=0.8
+    - JUPYTERHUB=0.9
+    - JUPYTERHUB=1.0
+    - JUPYTERHUB=1.1.0
 services:
   - docker
 before_install:
   - docker swarm init
   - nvm install 10; nvm use 10
   - npm install -g configurable-http-proxy
-  - pip install --pre --upgrade -r dev-requirements.txt jupyterhub==${JUPYTERHUB:-0}.* ${EXTRA_PIP}
+  - pip install --pre --upgrade -r dev-requirements.txt jupyterhub==${JUPYTERHUB:-0}.*
 install:
   - pip install -e .
   - pip freeze
