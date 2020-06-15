@@ -6,8 +6,6 @@ env:
   global:
     - ASYNC_TEST_TIMEOUT=30
   matrix:
-    - JUPYTERHUB=0.8
-    - JUPYTERHUB=0.9
     - JUPYTERHUB=1.0
     - JUPYTERHUB=1.1.0
 services:
@@ -24,7 +22,7 @@ script:
   - pyflakes dockerspawner
   - |
     # pre-pull images to avoid long wait times in tests
-    for v in 0.8 0.9; do
+    for v in 1.0 1.2.0; do
       docker pull jupyterhub/singleuser:$v
       # preserve the layers with a different tag
       docker tag jupyterhub/singleuser:$v jupyterhub/singleuser:${v}-cache
