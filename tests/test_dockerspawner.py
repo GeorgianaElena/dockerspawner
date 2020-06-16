@@ -26,7 +26,7 @@ async def test_start_stop(dockerspawner_configured_app):
     while r.status_code == 202:
         # request again
         r = await api_request(app, "users", name, "server", method="post")
-        await asyncio.sleep(0.1)
+        # await asyncio.sleep(0.1)
     assert r.status_code == 201, r.text
     
     url = url_path_join(public_url(app, user), "api/status")
@@ -44,8 +44,8 @@ async def test_image_allow_list(dockerspawner_configured_app, image):
     assert isinstance(user.spawner, DockerSpawner)
     user.spawner.remove_containers = True
     user.spawner.image_whitelist = {
+        "0.9": "jupyterhub/singleuser:0.9",
         "1.0": "jupyterhub/singleuser:1.0",
-        "latest": "jupyterhub/singleuser:latest",
     }
     token = user.new_api_token()
     # start the server
@@ -59,7 +59,7 @@ async def test_image_allow_list(dockerspawner_configured_app, image):
     while r.status_code == 202:
         # request again
         r = await api_request(app, "users", name, "server", method="post")
-        await asyncio.sleep(0.1)
+        # await asyncio.sleep(0.1)
     assert r.status_code == 201, r.text
     
     url = url_path_join(public_url(app, user), "api/status")
