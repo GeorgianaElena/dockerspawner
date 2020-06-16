@@ -104,7 +104,7 @@ async def test_image_pull_policy(dockerspawner_configured_app):
 
     # now tag busybox:latest as our current version
     # which is not latest!
-    await spawner.docker("tag", image, repo)
+    await asyncio.wrap_future(spawner.docker("tag", image, repo))
 
     image = repo  # implicit :latest
     spawner.pull_policy = "ifnotpresent"
