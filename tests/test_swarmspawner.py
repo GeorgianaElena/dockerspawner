@@ -25,6 +25,7 @@ async def test_start_stop(swarmspawner_configured_app):
     while r.status_code == 202:
         # request again
         r = await api_request(app, "users", name, "server", method="post")
+        await asyncio.sleep(0.1)
     assert r.status_code == 201, r.text
     url = url_path_join(public_url(app, user), "api/status")
 
