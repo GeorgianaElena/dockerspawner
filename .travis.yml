@@ -21,7 +21,7 @@ script:
   - pyflakes dockerspawner
   - |
     # pre-pull images to avoid long wait times in tests
-    for v in 0.9 1.0; do
+    for v in 1.0 1.1.dev; do
       docker pull jupyterhub/singleuser:$v
       # preserve the layers with a different tag
       docker tag jupyterhub/singleuser:$v jupyterhub/singleuser:${v}-cache
@@ -49,11 +49,16 @@ jobs:
     - name: internal-ssl test
       python: 3.6
       env: TEST=internal-ssl
-    - name: python:3.5 + jupyterhub 1.0
-      python: 3.5
-      env: JUPYTERHUB=1.0
     - name: python:3.6 + jupyterhub 1.0
       python: 3.6
       env: JUPYTERHUB=1.0
-      #todo: test with JupyterHub 1.1.0
+    - name: python:3.7 + jupyterhub 1.0
+      python: 3.7
+      env: JUPYTERHUB=1.0
+    - name: python:3.6 + jupyterhub 1.1
+      python: 3.6
+      env: JUPYTERHUB=1.1
+    - name: python:3.7 + jupyterhub 1.1
+      python: 3.7
+      env: JUPYTERHUB=1.1
   fast_finish: true
